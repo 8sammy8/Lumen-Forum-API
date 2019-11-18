@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,11 +12,15 @@
 |
 */
 
-//$router->get('/', function () use ($router) {
-//    return $router->app->version();
-//});
+$router->group(['prefix' => 'api'], function () use ($router) {
 
-Route::group(['prefix' => 'api'], function () {
-    Route::post('/register', 'RegisterController@register');
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+
+        $router->get('/user', function (Request $request) {
+            return $request->user();
+        });
+    });
+
+    $router->post('/register', 'RegisterController@register');
+
 });
-
