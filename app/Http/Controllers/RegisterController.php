@@ -8,6 +8,10 @@ use App\Transformers\UserTransformer;
 
 class RegisterController extends Controller
 {
+    /**
+     * @param StoreUserRequest $request
+     * @return array
+     */
     public function register (StoreUserRequest $request)
     {
     	$user = new User;

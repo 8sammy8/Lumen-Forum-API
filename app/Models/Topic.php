@@ -32,18 +32,30 @@ class Topic extends Model
 {
     use Orderable;
 
+    /**
+     * @var array
+     */
     protected $fillable = ['title'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function posts()
     {
         return $this->hasMany(Post::class)->oldestFirst();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');

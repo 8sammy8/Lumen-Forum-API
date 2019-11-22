@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Http\Redirector;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
