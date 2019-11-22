@@ -23,14 +23,13 @@ class PostController extends Controller
         $post->user()->associate($request->user());
 
         $topic = Topic::findOrFail($topicId);
+        $topic->posts()->save($post);
 
-        return ($topic->posts()->save($post))
-            ? fractal()
+        return fractal()
                 ->item($post)
                 ->parseIncludes(['user'])
                 ->transformWith(new PostTransformer)
-                ->toArray()
-            : response(null, 404);
+                ->toArray();
     }
 
     /**
@@ -46,14 +45,14 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($postId);
         $post->body = $request->get('body', $request->body);
+        $this->authorize('update', $post);
 
-        return ($post && $this->authorize('update', $post) && $post->save())
-            ? fractal()
+        $post->save();
+        return  fractal()
                 ->item($post)
                 ->parseIncludes(['user'])
                 ->transformWith(new PostTransformer)
-                ->toArray()
-            : response(null, 404);
+                ->toArray();
     }
 
     /**
@@ -65,9 +64,10 @@ class PostController extends Controller
     public function destroy($topicId, $postId)
     {
         $post = Post::findOrFail($postId);
+        $this->authorize('destroy', $post);
 
-        return ($post && $this->authorize('destroy', $post) && $post->delete())
-        ? response(null, 204)
-        : response(null, 404);
+        $post->delete();
+
+        return response(null, 204);
     }
 }

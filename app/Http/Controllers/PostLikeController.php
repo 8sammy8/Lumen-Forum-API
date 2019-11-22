@@ -31,31 +31,8 @@ class PostLikeController extends Controller
             return response(null, 409);
         }
 
-        return ($post && $post->likes()->save($like))
-            ? response(null, 204)
-            : response(null, 404);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $post->likes()->save($like);
+        return response(null, 204);
     }
 
     /**

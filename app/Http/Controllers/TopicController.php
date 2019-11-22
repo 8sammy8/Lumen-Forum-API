@@ -87,21 +87,18 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
 
-        if($topic)
-        {
-            $this->authorize('update', $topic);
+        $this->authorize('update', $topic);
 
-            $topic->title = $request->get('title', $topic->title);
+        $topic->title = $request->get('title', $topic->title);
 
-            $topic->save();
+        $topic->save();
 
-            return fractal()
-                ->item($topic)
-                ->parseIncludes(['user', 'posts', 'posts.user'])
-                ->transformWith(new TopicTransformer)
-                ->toArray();
-        }
-        return response(null, 404);
+        return fractal()
+            ->item($topic)
+            ->parseIncludes(['user', 'posts', 'posts.user'])
+            ->transformWith(new TopicTransformer)
+            ->toArray();
+
     }
 
     /**
@@ -116,15 +113,11 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
 
-        if($topic)
-        {
-            $this->authorize('destroy', $topic);
+        $this->authorize('destroy', $topic);
 
-            if($topic->delete())
-            {
-                return response(null, 204);
-            }
+        if($topic->delete())
+        {
+            return response(null, 204);
         }
-        return response(null, 404);
     }
 }
