@@ -90,6 +90,11 @@ $app->register(App\Providers\FormRequestServiceProvider::class);
 
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
+$app->register(Spatie\Fractal\FractalServiceProvider::class);
+
+if ($app->environment() !== 'production') {
+    $app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+}
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

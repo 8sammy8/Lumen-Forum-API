@@ -21,6 +21,22 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         });
     });
 
+    $router->group(['prefix' => 'topics'], function () use ($router) {
+
+        $router->get('/', 'TopicController@index');
+        $router->get('/{topic}', 'TopicController@show');
+        $router->post('/', ['middleware' => 'auth', 'uses' => 'TopicController@store']);
+        $router->patch('/{id}', ['middleware' => 'auth', 'uses' => 'TopicController@update']);
+        $router->delete('/{id}', ['middleware' => 'auth', 'uses' => 'TopicController@destroy']);
+
+        $router->group(['prefix' => '/{id}/posts'], function () use ($router) {
+
+            $router->post('/', ['middleware' => 'auth', 'uses' => 'PostController@store']);
+
+        });
+    });
+
+
     $router->post('/register', 'RegisterController@register');
 
 });
