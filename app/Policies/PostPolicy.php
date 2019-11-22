@@ -29,4 +29,14 @@ class PostPolicy
     {
         return $user->ownsPost($post);
     }
+
+    /**
+     * @param User $user
+     * @param Post $post
+     * @return bool
+     */
+    public function like(User $user, Post $post)
+    {
+        return !$user->ownsPost($post);
+    }
 }

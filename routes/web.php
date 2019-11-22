@@ -34,6 +34,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('/', ['middleware' => 'auth', 'uses' => 'PostController@store']);
             $router->patch('/{post}', ['middleware' => 'auth', 'uses' => 'PostController@update']);
             $router->delete('/{post}', ['middleware' => 'auth', 'uses' => 'PostController@destroy']);
+
+            $router->group(['prefix' => '/{posts}/likes'], function () use ($router) {
+                $router->post('/', ['middleware' => 'auth', 'uses' => 'PostLikeController@store']);
+            });
         });
     });
 
