@@ -26,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::policy('App\Models\Topic', 'App\Policies\TopicPolicy');
+        Gate::policy('App\Models\Post', 'App\Policies\PostPolicy');
 
         // Here you may define how you wish users to be authenticated for your Lumen
         // application. The callback which receives the incoming request instance

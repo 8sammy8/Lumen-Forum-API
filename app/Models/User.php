@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Model;
-use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Auth\Authenticatable;
+use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 /**
  * App\Models\User
@@ -68,11 +68,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     /**
-     * @param Topic $topic
+     * @param \App\Models\Topic $topic
      * @return bool
      */
     public function ownsTopic(Topic $topic)
     {
         return $this->id === $topic->user->id;
+    }
+
+    /**
+     * @param \App\Models\Post $post
+     * @return bool
+     */
+    public function ownsPost(Post $post)
+    {
+        return $this->id === $post->user->id;
     }
 }

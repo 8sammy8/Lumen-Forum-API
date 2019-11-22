@@ -26,13 +26,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->get('/', 'TopicController@index');
         $router->get('/{topic}', 'TopicController@show');
         $router->post('/', ['middleware' => 'auth', 'uses' => 'TopicController@store']);
-        $router->patch('/{id}', ['middleware' => 'auth', 'uses' => 'TopicController@update']);
-        $router->delete('/{id}', ['middleware' => 'auth', 'uses' => 'TopicController@destroy']);
+        $router->patch('/{topic}', ['middleware' => 'auth', 'uses' => 'TopicController@update']);
+        $router->delete('/{topic}', ['middleware' => 'auth', 'uses' => 'TopicController@destroy']);
 
-        $router->group(['prefix' => '/{id}/posts'], function () use ($router) {
+        $router->group(['prefix' => '/{topic}/posts'], function () use ($router) {
 
             $router->post('/', ['middleware' => 'auth', 'uses' => 'PostController@store']);
-
+            $router->patch('/{post}', ['middleware' => 'auth', 'uses' => 'PostController@update']);
+            $router->delete('/{post}', ['middleware' => 'auth', 'uses' => 'PostController@destroy']);
         });
     });
 

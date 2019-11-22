@@ -81,6 +81,7 @@ class TopicController extends Controller
      * @param  UpdateTopicRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateTopicRequest $request, $id)
     {
@@ -108,6 +109,7 @@ class TopicController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id)
