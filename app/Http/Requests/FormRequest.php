@@ -123,7 +123,11 @@ class FormRequest extends Request implements ValidatesWhenResolved
      */
     public function response(array $errors)
     {
-        return new JsonResponse($errors, 422);
+        return response()->json([
+            'data' => [
+                'errors' =>  $errors
+            ]
+        ], 422);
     }
     /**
      * Get the response for a forbidden operation.
